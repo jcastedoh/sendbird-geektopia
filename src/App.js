@@ -23,8 +23,8 @@ const App = () => {
             if(message.messageType === 'file') {
                 m = 'Sent a File: ' + message.name;
             } else if (
-                (message.messageType === 'user' && !m.includes('****')) ||
-                (message.messageType === 'admin' && !m.includes('****'))) {
+                (message.messageType === 'user' && !message.message.includes('****')) ||
+                (message.messageType === 'admin' && !message.message.includes('****'))) {
                 m = message.message;
             }
 
