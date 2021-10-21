@@ -13,6 +13,7 @@ Sendbird integration with ReactJs, which includes browser notification for files
 
 ## Current code
 
+- yarn install
 - yarn start
 
 ## Author
