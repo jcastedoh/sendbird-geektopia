@@ -4,9 +4,30 @@ import SendBird from "sendbird";
 import "sendbird-uikit/dist/index.css";
 
 const App = () => {
-    const sb = new SendBird({appId: '51008BCF-6B71-4A2E-8C66-93997F534513'});
-    const channelHandler = new sb.ChannelHandler();
+    const sb = new SendBird({appId: '1A30D5E9-AAD8-4DC8-8F33-C718096B3B39'});
 
+    sb.connect('Tamara', function(user, error) {
+        if (error) {
+            console.log('Geektopia Error - Connect: ' + error);
+        }
+    });
+
+    sb.GroupChannel.getChannel('sendbird_group_channel_133555385_66368b09ed3503d6541cf3a304a3c3caf7d2e98a', function(groupChannel, error) {
+        if (error) {
+            console.log('Geektopia Error - Channel Get: ' + error);
+        }
+
+        const params = new sb.UserMessageParams();
+        params.message = 'Shit';
+
+        groupChannel.sendUserMessage(params, function(message, error) {
+            if (error) {
+                console.log('Geektopia Error - Channel Send User Message: ' + error);
+            }
+        });
+    });
+
+    const channelHandler = new sb.ChannelHandler();
     channelHandler.onMessageReceived = function(channel, message) {
         if(message) {
             let m = '';
@@ -40,7 +61,7 @@ const App = () => {
         }
     };
 
-    sb.addChannelHandler('sendbird_group_channel_133168852_422b0937a934d825d9bc63fff87cccb02ad8bf88', channelHandler);
+    sb.addChannelHandler('133168852', channelHandler);
 
     function showNotification(message, nickname, profile) {
         const notification = new Notification("SendBird - New Message from " + nickname, {
@@ -54,10 +75,9 @@ const App = () => {
     return (
       <div className="App">
           <SendBirdApp
-              appId='51008BCF-6B71-4A2E-8C66-93997F534513'
-              userId='tammy'
+              appId='1A30D5E9-AAD8-4DC8-8F33-C718096B3B39'
+              userId='Tamara'
               theme='dark'
-              showSearchIcon='true'
           />
       </div>
     );
